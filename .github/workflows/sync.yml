@@ -32,5 +32,4 @@ jobs:
           mv * ..
           cd ..
           rm -rf FRC-Wiki
-          git commit -m "Auto-Sync"
           git push origin main -f
