@@ -1,6 +1,10 @@
 name: "FRC-China/FRC-Wiki Syncing"
 
-on: [push, pull_request]
+on: 
+  push:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 */3 * * *"
 
 jobs:
   build:
