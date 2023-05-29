@@ -1,0 +1,33 @@
+name: "FRC-China/FRC-Wiki Syncing"
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    name: "FRC-China/FRC-Wiki Syncing"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+      - name: Publish
+        run: |
+          mkdir -p ~/.ssh/
+          echo "${{ secrets.KEY }}" > ~/.ssh/id_rsa.pub
+          chmod 600 ~/.ssh/id_rsa.pub
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          git config --global user.name "FRC-China/FRC-Wiki Syncing Bot"
+          git config --global user.email "nobody@nobody.nobody"
+          git config --global core.quotepath false
+          shopt -s extglob
+          rm -rf !(.git|.ssh|.github)
+          git clone https://github.com/FRC-China/FRC-Wiki.git
+          cd FRC-Wiki
+          rm -rf .git
+          rm -rf .github
+          mv * ..
+          cd ..
+          rm -rf FRC-Wiki
+          git add --all
+          git commit -m "Auto-Sync"
+          git push origin main
