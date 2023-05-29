@@ -27,6 +27,7 @@ jobs:
           rm -rf !(.git|.ssh|.github)
           git clone https://github.com/FRC-China/FRC-Wiki.git
           cd FRC-Wiki
+          mv .gitignore ..
           rm -rf .git
           rm -rf .github
           mv * ..
