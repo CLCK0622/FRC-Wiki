@@ -25,7 +25,6 @@ jobs:
           git config --global core.quotepath false
           shopt -s extglob
           rm -rf !(.git|.ssh|.github)
-          rm -rf .gitignore
           git clone https://github.com/FRC-China/FRC-Wiki.git
           cd FRC-Wiki
           rm -rf .git
@@ -33,4 +32,6 @@ jobs:
           mv * ..
           cd ..
           rm -rf FRC-Wiki
-          git push origin main -f
+          git add --all
+          git commit -m "Auto Sync"
+          git push origin main
